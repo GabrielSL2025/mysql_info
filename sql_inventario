@@ -1,0 +1,57 @@
+CREATE DATABASE inventarios;
+
+use inventarios;
+
+CREATE TABLE empleado (
+  id_empleado INT PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(100) not null,
+  rol varchar(50) not null,
+  usuario varchar(50) not null unique,
+  contrasena_hash varchar(300) not null
+ );
+
+CREATE TABLE factura (
+  id_factura INT PRIMARY KEY AUTO_INCREMENT,
+  fecha datetime not null,
+  total decimal(10.2) not null,
+  id_cliente int not null unique,
+  id_empleado int not null
+ );
+ 
+ create table cliente(
+ id_cliente int primary key auto_increment,
+ nombre varchar (100) not null,
+ direccion varchar (200) not null,
+ telefono bigint not null ,
+ email varchar(100) not null unique
+ )
+
+alter table factura
+add constraint fk_facturas_empleado
+foreign key(id_empleado)
+references empleado(id_empleado);
+
+alter table factura
+add constraint fk_facturas_cliente
+foreign key(id_cliente)
+references cliente(id_cliente); 
+
+CREATE TABLE detalle_factura (
+  id_detalle INT PRIMARY KEY AUTO_INCREMENT,
+  cantidad int not null,
+  precio_unitario decimal (10.2) not null,
+  subtotal decimal(10.2) not null,
+  id_factura int ,
+  id_producto int 
+ );
+ 
+
+ create table producto (
+ id_producto int primary key auto_increment,
+ nombre varchar(100) not null,
+ descripcion text not null,
+ precio_compra decimal(10.2) not null,
+ precio_venta decimal(10.2) not null,
+ id_categoria int,
+ id_proveedor int
+ )
