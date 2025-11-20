@@ -24,7 +24,7 @@ CREATE TABLE factura (
  direccion varchar (200) not null,
  telefono bigint not null ,
  email varchar(100) not null unique
- )
+ );
 
 alter table factura
 add constraint fk_facturas_empleado
@@ -45,8 +45,7 @@ CREATE TABLE detalle_factura (
   id_producto int 
  );
  
-
- create table producto (
+create table producto (
  id_producto int primary key auto_increment,
  nombre varchar(100) not null,
  descripcion text not null,
@@ -54,4 +53,26 @@ CREATE TABLE detalle_factura (
  precio_venta decimal(10.2) not null,
  id_categoria int,
  id_proveedor int
+ );
+
+create table inventario (
+ id_inventario int primary key auto_increment,
+ id_producto int,
+ stock_actual int not null,
+ stock_minimo int ,
+ stock_maximo int
+ );
+ 
+  create table proveedor(
+ id_proveedor int primary key auto_increment,
+ nombre varchar (100) not null,
+ direccion varchar (200) not null,
+ telefono bigint not null ,
+ email varchar(100) not null unique
+ );
+ 
+ create table categoria (
+ id_categoria int primary key auto_increment,
+ nombre varchar (100) not null
  )
+
