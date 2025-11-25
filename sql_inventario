@@ -26,16 +26,6 @@ CREATE TABLE factura (
  email varchar(100) not null unique
  );
 
-alter table factura
-add constraint fk_facturas_empleado
-foreign key(id_empleado)
-references empleado(id_empleado);
-
-alter table factura
-add constraint fk_facturas_cliente
-foreign key(id_cliente)
-references cliente(id_cliente); 
-
 CREATE TABLE detalle_factura (
   id_detalle INT PRIMARY KEY AUTO_INCREMENT,
   cantidad int not null,
@@ -60,8 +50,8 @@ create table inventario (
  id_inventario int primary key auto_increment,
  id_producto int,
  stock_actual int not null,
- stock_minimo int ,
- stock_maximo int
+ stock_minimo int not null,
+ stock_maximo int not null
  );
  
   create table proveedor(
@@ -75,7 +65,17 @@ create table inventario (
  create table categoria (
  id_categoria int primary key auto_increment,
  nombre varchar (100) not null
- )
+ );
+
+alter table factura
+add constraint fk_facturas_empleado
+foreign key(id_empleado)
+references empleado(id_empleado);
+
+alter table factura
+add constraint fk_facturas_cliente
+foreign key(id_cliente)
+references cliente(id_cliente);
 
 alter table detalle_factura
 add constraint fk_detalle_factura
@@ -91,4 +91,22 @@ alter table detalle_factura
 add constraint fk_detalle_producto
 foreign key(id_producto)
 references producto(id_producto);
+
+alter table producto
+add constraint fk_producto_categoria
+foreign key(id_categoria)
+references categoria(id_categoria);
+
+alter table inventario
+add constraint fk_inventario_producto
+foreign key(id_producto)
+references producto(id_producto);
+
+alter table producto
+add constraint fk_producto_proveedor
+foreign key(id_proveedor)
+references proveedor(id_proveedor);
+
+
+
  
